@@ -36,10 +36,55 @@
       .header {
         font-family: "Fraunces", serif;
       }
+      /* .menu {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .menu-open {
+        opacity: 1;
+        transform: translateY(0);
+      } */
+
+      @media screen and (min-width: 280px) and (max-width: 357px) {
+        .head1 {
+          font-size: 1.875rem; /* 30px */
+          line-height: 2.25rem; /* 36px */
+        }
+        .head34 {
+          font-size: 0.875rem; /* 14px */
+          line-height: 1.25rem; /* 20px */
+        }
+        .c12 {
+          padding-left: 1rem;
+          padding-right: 1rem;
+          padding-top: 5rem;
+          padding-bottom: 5rem;
+        }
+        .c34 {
+          font-size: 0.75rem; /* 12px */
+          line-height: 1rem; /* 16px */
+          padding-left: 0.1rem;
+          padding-right: 0.1rem;
+        }
+      }
+
+      @media screen and (min-width: 1536px) and (max-width: 1778px) {
+        .c12 {
+          padding-left: 5rem;
+          padding-right: 5rem;
+          padding-top: 10rem;
+          padding-bottom: 10rem;
+        }
+        .c34 {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
     </style>
   </head>
   <body>
-    <div class="container-fluid relative">
+    <div id="app" class="container-fluid relative">
       <img
         src="images/desktop/image-header.jpg"
         alt=""
@@ -66,13 +111,16 @@
               >CONTACT</a
             >
           </div>
-          <button class="block md:hidden">
+          <button class="block md:hidden" @click="openMenu">
             <img src="images/icon-hamburger.svg" alt="" />
           </button>
         </div>
 
         <div
-          class="absolute left-[26%] bg-white w-1/2 text-center flex flex-col py-10 rounded-xl z-10 hidden"
+          :class="{ 'animate-slide-down': menu, 'animate-slide-up': !menu }"
+          class="menu absolute left-[26%] bg-white w-1/2 text-center flex flex-col py-10 rounded-xl z-10"
+          v-if="menu"
+          @click.away="closeMenu"
         >
           <a href="#" class="text-gray-500">About</a>
           <a href="#" class="text-gray-500 mt-3">Services</a>
@@ -90,7 +138,7 @@
         class="absolute top-[-2%] right-1/2 md:top-[-2%] lg:top-[-2%] lg:left-[-5%] xl:top-[0%] 2xl:top-[3%] transform translate-x-1/2 translate-y-1/2"
       >
         <p
-          class="header font-bold text-5xl md:text-7xl lg:text-7xl text-white tracking-[0.5rem] text-center mt-20 md:mt-0"
+          class="header font-bold text-5xl md:text-7xl lg:text-7xl text-white tracking-[0.5rem] text-center mt-20 md:mt-0 head1"
         >
           WE ARE CREATIVES
         </p>
@@ -105,7 +153,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2">
         <!-- content-1 -->
         <div
-          class="p-20 text-center order-2 md:order-1 md:px-52 md:py-32 md:text-start lg:text-center lg:px-5 lg:py-12 xl:py-28 xl:px-20 2xl:text-start 2xl:px-52 2xl:py-56"
+          class="p-20 text-center order-2 md:order-1 md:px-52 md:py-32 md:text-start lg:text-center lg:px-5 lg:py-12 xl:py-28 xl:px-20 2xl:text-start 2xl:px-52 2xl:py-56 c12"
         >
           <p class="font-bold text-4xl sm:text-5xl md:text-6xl header">
             Transform your brand
@@ -116,10 +164,16 @@
             most of the marketing for you.
           </p>
 
-          <a href="" class="relative">
+          <a
+            href=""
+            class="relative"
+            v-on:mouseenter="hoverInBtn1"
+            v-on:mouseleave="hoverOutBtn1"
+          >
             <button
               href="#"
-              class="bg-[#fad400] opacity-50 hover:bg-[#fad400] hover:opacity-100 rounded-full px-16 py-1"
+              class="bg-[#fad400] opacity-50 rounded-full px-16 py-1"
+              :class="{ 'opacity-100': isHoveredBtn1 }"
             ></button>
             <p
               class="absolute top-[-30%] left-[2%] font-bold text-lg tracking-[0.2rem] cursor-pointer"
@@ -137,7 +191,7 @@
           <img src="images/desktop/image-stand-out.jpg" alt="" class="w-full" />
         </div>
         <div
-          class="p-20 text-center order-2 md:px-52 md:py-28 md:text-start lg:text-center lg:px-5 lg:py-12 xl:py-28 xl:px-20 2xl:text-start 2xl:px-52 2xl:py-56 order-4"
+          class="p-20 text-center order-2 md:px-52 md:py-28 md:text-start lg:text-center lg:px-5 lg:py-12 xl:py-28 xl:px-20 2xl:text-start 2xl:px-52 2xl:py-56 order-4 c12"
         >
           <p class="font-bold text-4xl sm:text-5xl md:text-6xl header">
             Stand out to the right audience
@@ -147,10 +201,16 @@
             photographers, videographers, and copywriters, we’ll build and
             extend your brand in digital places.
           </p>
-          <a href="" class="relative">
+          <a
+            href=""
+            class="relative"
+            v-on:mouseenter="hoverInBtn2"
+            v-on:mouseleave="hoverOutBtn2"
+          >
             <button
               href="#"
-              class="bg-[#fe7867] opacity-50 hover:bg-[#fe7867] hover:opacity-100 rounded-full px-16 py-1"
+              class="bg-[#fe7867] opacity-50 rounded-full px-16 py-1"
+              :class="{ 'opacity-100': isHoveredBtn2 }"
             ></button>
             <p
               class="absolute top-[-30%] left-[2%] font-bold text-lg tracking-[0.2rem] cursor-pointer"
@@ -168,13 +228,15 @@
             class="w-full"
           />
           <div
-            class="absolute top-[40%] md:top-[58%] md:px-32 lg:top-[35%] lg:px-0 xl:top-[45%] 2xl:top-[50%] 2xl:px-40 text-center transform translate-y-1/2 text-[#25564b]"
+            class="absolute top-[40%] md:top-[58%] md:px-32 lg:top-[35%] lg:px-0 xl:top-[45%] 2xl:top-[50%] 2xl:px-40 text-center transform translate-y-1/2 text-[#25564b] c34"
           >
-            <p class="header text-2xl md:text-4xl 2xl:text-5xl font-bold">
+            <p
+              class="header text-2xl md:text-4xl 2xl:text-5xl font-bold head34"
+            >
               Graphic Design
             </p>
             <p
-              class="text-sm pt-4 px-12 md:pt-8 md:px-36 md:text-md 2xl:text-lg"
+              class="text-sm pt-4 px-12 md:pt-8 md:px-36 md:text-md 2xl:text-lg c34"
             >
               Great design makes you memorable. We deliver artwork that
               underscores your brand message and captures potential clients’
@@ -189,13 +251,15 @@
             class="w-full"
           />
           <div
-            class="absolute top-[40%] md:top-[58%] md:px-32 lg:top-[38%] lg:px-0 xl:top-[46%] 2xl:top-[50%] 2xl:px-40 text-center transform translate-y-1/2 text-[#19536b]"
+            class="absolute top-[40%] md:top-[58%] md:px-32 lg:top-[38%] lg:px-0 xl:top-[46%] 2xl:top-[50%] 2xl:px-40 text-center transform translate-y-1/2 text-[#19536b] c34"
           >
-            <p class="header text-2xl md:text-4xl 2xl:text-5xl font-bold">
+            <p
+              class="header text-2xl md:text-4xl 2xl:text-5xl font-bold head34"
+            >
               Photography
             </p>
             <p
-              class="text-sm pt-4 px-12 md:pt-8 md:px-36 md:text-md 2xl:text-lg"
+              class="text-sm pt-4 px-12 md:pt-8 md:px-36 md:text-md 2xl:text-lg c34"
             >
               Increase your credibility by getting the most stunning,
               high-quality photos that improve your business image.
@@ -323,5 +387,45 @@
         </div>
       </div>
     </div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            menu: false,
+            isHoveredBtn1: false,
+            isHoveredBtn2: false,
+          };
+        },
+
+        methods: {
+          openMenu() {
+            if (this.menu) {
+              this.menu = false;
+            } else {
+              this.menu = true;
+            }
+          },
+          closeMenu() {
+            this.menu = false;
+          },
+
+          hoverInBtn1() {
+            this.isHoveredBtn1 = true;
+          },
+          hoverOutBtn1() {
+            this.isHoveredBtn1 = false;
+          },
+          hoverInBtn2() {
+            this.isHoveredBtn2 = true;
+          },
+          hoverOutBtn2() {
+            this.isHoveredBtn2 = false;
+          },
+        },
+      }).mount("#app");
+    </script>
   </body>
 </html>
